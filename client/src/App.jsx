@@ -23,7 +23,7 @@ function App() {
         <Navbar />
         <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] lg:gap-8">
           <Sidebar></Sidebar>
-          <div className="flex flex-col gap-2 border-black border-2">
+          <div className="flex flex-col gap-2">
             <HeroSection></HeroSection>
             <Graphs />
           </div>
