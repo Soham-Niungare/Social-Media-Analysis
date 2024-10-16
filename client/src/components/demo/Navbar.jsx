@@ -9,7 +9,7 @@ export function Navbar() {
             <div className="md:flex md:items-center md:gap-12">
               <a className="block text-teal-600" href="#">
                 <span className="sr-only">Home</span>
-                <h1 className="font-semibold text-xl">InsightPulse</h1>
+                <h1 className="font-semibold text-xl">TweetLense</h1>
               </a>
             </div>
 
@@ -18,7 +18,7 @@ export function Navbar() {
                 <ul className="flex items-center gap-6 text-md">
                   <li>
                     <a
-                      className="text-gray-800 transition hover:text-gray-500/75"
+                      className="text-gray-600 font-semibold text-lg transition hover:text-gray-500/75"
                       href="#"
                     >
                       {" "}
@@ -28,31 +28,21 @@ export function Navbar() {
 
                   <li>
                     <a
-                      className="text-gray-800 transition hover:text-gray-500/75"
-                      href="#"
-                    >
-                      {" "}
-                      Careers{" "}
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      className="text-gray-800 transition hover:text-gray-500/75"
-                      href="#"
-                    >
-                      {" "}
-                      Projects{" "}
-                    </a>
-                  </li>
-
-                  <li>
-                    <a
-                      className="text-gray-800 transition hover:text-gray-500/75"
+                      className="text-gray-600 font-semibold text-lg transition hover:text-gray-500/75"
                       href="#"
                     >
                       {" "}
                       Blog{" "}
+                    </a>
+                  </li>
+
+                  <li>
+                    <a
+                      className="text-gray-600 font-semibold text-lg transition hover:text-gray-500/75"
+                      href="#"
+                    >
+                      {" "}
+                      Contact Us{" "}
                     </a>
                   </li>
                 </ul>

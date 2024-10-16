@@ -4,6 +4,8 @@ import { Navbar } from "./components/demo/Navbar";
 import { Graphs } from "./components/demo/Graphs";
 import { HeroSection } from "./components/demo/HeroSection";
 import { Sidebar } from "./components/demo/Sidebar";
+import { Blogsection } from "./components/demo/Blogsection";
+import { Footer } from "./components/demo/Footer";
 
 function App() {
   const [array, setArray] = useState([]);
@@ -26,8 +28,10 @@ function App() {
           <div className="flex flex-col gap-2">
             <HeroSection></HeroSection>
             <Graphs />
+            <Blogsection></Blogsection>
           </div>
         </div>
+        <Footer></Footer>
       </div>
     </>
   );

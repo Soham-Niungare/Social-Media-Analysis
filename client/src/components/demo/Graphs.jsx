@@ -7,7 +7,7 @@ export function Graphs() {
     <>
       <InputDemo />
 
-      <div className="grid grid-cols-1 gap-4 mt-4 mx-4 lg:grid-cols-2 lg:gap-8">
+      <div className="grid grid-cols-1 gap-4 my-4 mx-4 lg:grid-cols-2 lg:gap-8">
         <MyChart />
         <YourChart />
       </div>

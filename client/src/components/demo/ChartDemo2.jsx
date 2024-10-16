@@ -20,7 +20,7 @@ import {
 export const description = "A stacked area chart";
 
 const chartData = [
-  { month: "January", desktop: 186, mobile: 80 },
+  { month: "Jan", desktop: 186, mobile: 80 },
   { month: "February", desktop: 305, mobile: 200 },
   { month: "March", desktop: 237, mobile: 120 },
   { month: "April", desktop: 730, mobile: 190 },
@@ -30,22 +30,22 @@ const chartData = [
 
 const chartConfig = {
   desktop: {
-    label: "Desktop",
+    label: "Trending",
     color: "hsl(var(--chart-1))",
   },
   mobile: {
-    label: "Mobile",
+    label: "Frequency",
     color: "hsl(var(--chart-2))",
   },
 };
 
 export function YourChart() {
   return (
-    <Card>
+    <Card className="hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
       <CardHeader>
-        <CardTitle>Area Chart - Stacked</CardTitle>
+        <CardTitle>Area Chart </CardTitle>
         <CardDescription>
-          Showing total visitors for the last 6 months
+          Showing analysed data over last 6 months
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -93,7 +93,7 @@ export function YourChart() {
         <div className="flex w-full items-start gap-2 text-sm">
           <div className="grid gap-2">
             <div className="flex items-center gap-2 font-medium leading-none">
-              Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
+              Trending topics <TrendingUp className="h-4 w-4" />
             </div>
             <div className="flex items-center gap-2 leading-none text-muted-foreground">
               January - June 2024
