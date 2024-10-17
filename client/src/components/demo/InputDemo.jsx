@@ -1,7 +1,29 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
+import { useState } from "react";
+import axios from "axios";
 
 export function InputDemo() {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [responseMessage, setResponseMessage] = useState("");
+
+  const handleInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearch = async () => {
+    console.log("User Input:", searchQuery);
+    try {
+      const response = await axios.post("http://127.0.0.1:8080/api/variable", {
+        searchQuery: searchQuery,
+      });
+      setResponseMessage(response.data.message);
+    } catch (error) {
+      console.error("Error during search:", error);
+      setResponseMessage("An error occurred while searching.");
+    }
+  };
+
   return (
     <>
       <div className="mt-6 mb-4">
@@ -22,10 +44,17 @@ export function InputDemo() {
           <Input
             type="text"
             placeholder="Search Tweets"
+            value={searchQuery}
+            onChange={handleInputChange}
             className="flex w-[80%] bg-white text-gray-500 rounded-xl sm:w-[30%] border border-gray-500 py-6"
           />
-          <Button className="py-6">Search</Button>
+          <Button className="py-6" onClick={handleSearch}>
+            Search
+          </Button>
         </div>
+        {responseMessage && (
+          <p className="mt-4 text-lg text-blue-600">{responseMessage}</p>
+        )}
       </div>
     </>
   );

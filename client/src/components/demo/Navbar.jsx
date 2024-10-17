@@ -18,7 +18,7 @@ export function Navbar() {
                 <ul className="flex items-center gap-6 text-md">
                   <li>
                     <a
-                      className="text-gray-600 font-semibold text-lg transition hover:text-gray-500/75"
+                      className="text-gray-400 font-semibold text-lg transition hover:text-gray-900/75"
                       href="#"
                     >
                       {" "}
@@ -28,7 +28,7 @@ export function Navbar() {
 
                   <li>
                     <a
-                      className="text-gray-600 font-semibold text-lg transition hover:text-gray-500/75"
+                      className="text-gray-400 font-semibold text-lg transition hover:text-gray-900/75"
                       href="#"
                     >
                       {" "}
@@ -38,7 +38,7 @@ export function Navbar() {
 
                   <li>
                     <a
-                      className="text-gray-600 font-semibold text-lg transition hover:text-gray-500/75"
+                      className="text-gray-400 font-semibold text-lg transition hover:text-gray-900/75"
                       href="#"
                     >
                       {" "}
