@@ -1,11 +1,17 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "../ui/button";
 import { useState } from "react";
+import { MyChart } from "./ChartDemo1";
 import axios from "axios";
 
 export function InputDemo() {
   const [searchQuery, setSearchQuery] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
+
+  const [totalTweets, setTotalTweets] = useState(null);
+  const [positivePercentage, setPositivePercentage] = useState(null);
+  const [negativePercentage, setNegativePercentage] = useState(null);
+  const [neutralPercentage, setNeutralPercentage] = useState(null);
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -17,7 +23,13 @@ export function InputDemo() {
       const response = await axios.post("http://127.0.0.1:8080/api/variable", {
         searchQuery: searchQuery,
       });
+
       setResponseMessage(response.data.message);
+
+      setTotalTweets(response.data.total);
+      setPositivePercentage(response.data.positive_percentage);
+      setNegativePercentage(response.data.negative_percentage);
+      setNeutralPercentage(response.data.neutral_percentage);
     } catch (error) {
       console.error("Error during search:", error);
       setResponseMessage("An error occurred while searching.");
@@ -55,6 +67,29 @@ export function InputDemo() {
         {responseMessage && (
           <p className="mt-4 text-lg text-blue-600">{responseMessage}</p>
         )}
+
+        {totalTweets !== null && (
+          <div className="mt-6">
+            <p className="text-lg text-gray-700">
+              Total Tweets Analyzed: {totalTweets}
+            </p>
+            <p className="text-lg text-green-600">
+              Positive Sentiment: {(positivePercentage ?? 0).toFixed(2)}%
+            </p>
+            <p className="text-lg text-red-600">
+              Negative Sentiment: {(negativePercentage ?? 0).toFixed(2)}%
+            </p>
+            <p className="text-lg text-gray-600">
+              Neutral Sentiment: {(neutralPercentage ?? 0).toFixed(2)}%
+            </p>
+          </div>
+        )}
+        <MyChart
+          total={totalTweets}
+          positivePercentage={positivePercentage}
+          negativePercentage={negativePercentage}
+          neutralPercentage={neutralPercentage}
+        />
       </div>
     </>
   );

@@ -18,46 +18,39 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export const description = "A donut chart with text";
-
-const chartData = [
-  { browser: "chrome", visitors: 435, fill: "var(--color-chrome)" },
-  { browser: "safari", visitors: 327, fill: "var(--color-safari)" },
-  { browser: "edge", visitors: 363, fill: "var(--color-edge)" },
-];
-
-const chartConfig = {
-  visitors: {
-    label: "Visitors",
-  },
-  chrome: {
-    label: "Negative",
-    color: "hsl(var(--chart-1))",
-  },
-  safari: {
-    label: "Positive",
-    color: "hsl(var(--chart-2))",
-  },
-  edge: {
-    label: "Neutral",
-    color: "hsl(var(--chart-4))",
-  },
-};
-
-export function MyChart() {
-  const totalVisitors = React.useMemo(() => {
-    return chartData.reduce((acc, curr) => acc + curr.visitors, 0);
-  }, []);
+export function MyChart({
+  total,
+  positivePercentage,
+  negativePercentage,
+  neutralPercentage,
+}) {
+  const chartData = [
+    {
+      name: "Positive",
+      value: positivePercentage || 0,
+      fill: "hsl(var(--chart-2))",
+    },
+    {
+      name: "Negative",
+      value: negativePercentage || 0,
+      fill: "hsl(var(--chart-1))",
+    },
+    {
+      name: "Neutral",
+      value: neutralPercentage || 0,
+      fill: "hsl(var(--chart-4))",
+    },
+  ];
 
   return (
     <Card className="flex flex-col hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Pie Chart </CardTitle>
-        <CardDescription>January - June 2024</CardDescription>
+        <CardTitle>Sentiment Analysis Pie Chart</CardTitle>
+        <CardDescription>Real-time sentiment analysis</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         <ChartContainer
-          config={chartConfig}
+          config={chartData}
           className="mx-auto aspect-square max-h-[250px]"
         >
           <PieChart>
@@ -67,8 +60,8 @@ export function MyChart() {
             />
             <Pie
               data={chartData}
-              dataKey="visitors"
-              nameKey="browser"
+              dataKey="value"
+              nameKey="name"
               innerRadius={60}
               strokeWidth={5}
             >
@@ -87,7 +80,7 @@ export function MyChart() {
                           y={viewBox.cy}
                           className="fill-foreground text-3xl font-bold"
                         >
-                          {totalVisitors.toLocaleString()}
+                          {total.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
@@ -111,7 +104,7 @@ export function MyChart() {
           <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          All the tweets fetched recently
+          Data based on fetched tweets
         </div>
       </CardFooter>
     </Card>
