@@ -3,11 +3,13 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import { MyChart } from "./ChartDemo1";
 import axios from "axios";
+import { Spinner } from "../ui/spinner";
 
 export function InputDemo() {
   const [searchQuery, setSearchQuery] = useState("");
   const [responseMessage, setResponseMessage] = useState("");
-
+  const [loading, setLoading] = useState(false);
+  const [chartVisible, setChartVisible] = useState(false);
   const [totalTweets, setTotalTweets] = useState(null);
   const [positivePercentage, setPositivePercentage] = useState(null);
   const [negativePercentage, setNegativePercentage] = useState(null);
@@ -18,6 +20,9 @@ export function InputDemo() {
   };
 
   const handleSearch = async () => {
+    setLoading(true);
+    setResponseMessage("");
+    setChartVisible(false);
     console.log("User Input:", searchQuery);
     try {
       const response = await axios.post("http://127.0.0.1:8080/api/variable", {
@@ -30,15 +35,18 @@ export function InputDemo() {
       setPositivePercentage(response.data.positive_percentage);
       setNegativePercentage(response.data.negative_percentage);
       setNeutralPercentage(response.data.neutral_percentage);
+      setLoading(false);
+      setChartVisible(true);
     } catch (error) {
       console.error("Error during search:", error);
       setResponseMessage("An error occurred while searching.");
+      setLoading(false);
     }
   };
 
   return (
     <>
-      <div className="mt-6 mb-4">
+      <div className="mt-6 mb-4 flex flex-col gap-4">
         <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
           Dive Into the Data
           <span className="text-blue-600 dark:text-blue-500">
@@ -64,32 +72,21 @@ export function InputDemo() {
             Search
           </Button>
         </div>
-        {responseMessage && (
-          <p className="mt-4 text-lg text-blue-600">{responseMessage}</p>
-        )}
 
-        {totalTweets !== null && (
-          <div className="mt-6">
-            <p className="text-lg text-gray-700">
-              Total Tweets Analyzed: {totalTweets}
-            </p>
-            <p className="text-lg text-green-600">
-              Positive Sentiment: {(positivePercentage ?? 0).toFixed(2)}%
-            </p>
-            <p className="text-lg text-red-600">
-              Negative Sentiment: {(negativePercentage ?? 0).toFixed(2)}%
-            </p>
-            <p className="text-lg text-gray-600">
-              Neutral Sentiment: {(neutralPercentage ?? 0).toFixed(2)}%
-            </p>
+        {loading && (
+          <div className="flex justify-center my-4">
+            <Spinner />
           </div>
         )}
-        <MyChart
-          total={totalTweets}
-          positivePercentage={positivePercentage}
-          negativePercentage={negativePercentage}
-          neutralPercentage={neutralPercentage}
-        />
+
+        {chartVisible && (
+          <MyChart
+            total={totalTweets}
+            positivePercentage={positivePercentage}
+            negativePercentage={negativePercentage}
+            neutralPercentage={neutralPercentage}
+          />
+        )}
       </div>
     </>
   );

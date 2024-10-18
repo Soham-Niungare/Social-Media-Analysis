@@ -3,6 +3,7 @@
 import * as React from "react";
 import { TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
+import { Legend } from "./Legend";
 
 import {
   Card,
@@ -48,7 +49,8 @@ export function MyChart({
         <CardTitle>Sentiment Analysis Pie Chart</CardTitle>
         <CardDescription>Real-time sentiment analysis</CardDescription>
       </CardHeader>
-      <CardContent className="flex-1 pb-0">
+      <CardContent className="flex-1 pb-0 relative">
+        <Legend data={chartData} />
         <ChartContainer
           config={chartData}
           className="mx-auto aspect-square max-h-[250px]"
