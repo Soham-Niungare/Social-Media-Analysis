@@ -3,7 +3,7 @@ import axios from "axios";
 import { HeroSection } from "./components/demo/HeroSection";
 import { InputDemo } from "./components/demo/InputDemo";
 import { Sidebar } from "./components/demo/Sidebar";
-import { Blogsection } from "./components/demo/Blogsection";
+import { NewsSection } from "./components/demo/NewsSection";
 import { Footer } from "./components/demo/Footer";
 
 function App() {
@@ -21,12 +21,12 @@ function App() {
   return (
     <>
       <div className="w-full  flex flex-col gap-4 bg-gray-200">
-        <div class="grid grid-cols-1 lg:grid-cols-[auto_1fr] lg:gap-6 mx-2 mt-2 md:mx-0">
+        <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] lg:gap-6 mx-2 mt-2 md:mx-0">
           <Sidebar></Sidebar>
           <div className="flex flex-col gap-2">
             <HeroSection></HeroSection>
             <InputDemo></InputDemo>
-            <Blogsection></Blogsection>
+            <NewsSection></NewsSection>
           </div>
         </div>
         <Footer></Footer>
