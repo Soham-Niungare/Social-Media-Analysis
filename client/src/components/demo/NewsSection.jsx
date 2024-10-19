@@ -27,7 +27,7 @@ export function NewsSection() {
     const { today, lastWeek } = getActualDates();
 
     fetch(
-      `https://newsapi.org/v2/everything?q=Twitter&from=${lastWeek}&to=${today}&sortBy=publishedAt&apiKey=c3ccaecb001a45e0864b03adcc94ca9c`
+      `https://newsapi.org/v2/everything?q=Twitter&from=${lastWeek}&to=${today}&language=en&sortBy=publishedAt&apiKey=c3ccaecb001a45e0864b03adcc94ca9c`
     )
       .then((res) => res.json())
       .then((json) => {
@@ -53,12 +53,12 @@ export function NewsSection() {
 
   return (
     <>
-      <div id="NewsSection" className="flex flex-col gap-8">
+      <div id="NewsSection" className="flex flex-col gap-8 mx-2">
         <h2 className="text-center text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl">
           Fuel Your Curiosity with{" "}
           <span className="text-blue-600 dark:text-blue-500">Fresh Reads</span>
         </h2>
-        <div className="grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-8">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
           {news.map((article, index) => (
             <NewsCard key={index} article={article} />
           ))}

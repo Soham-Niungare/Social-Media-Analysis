@@ -13,7 +13,7 @@ export function NewsCard({ article }) {
             <img
               alt={article.title}
               src={article.urlToImage}
-              className="h-24 w-full object-cover sm:h-80 lg:h-96"
+              className="h-24 w-full object-cover sm:h-32 lg:h-64"
             />
           )}
           <div className="m-2">
