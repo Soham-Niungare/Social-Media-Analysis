@@ -8,17 +8,7 @@ from apify_client import ApifyClient
 app = Flask(__name__)
 cors = CORS(app, origins='*')
 
-@app.route("/api/users", methods=['GET'])
-def users():
-    return jsonify(
-        {
-            "users": [
-                'Nishad Bhujbal',
-                'Harshu Gorade',
-                'Mohammad Nedariya'
-            ]
-        }
-    )
+
 
 @app.route("/api/variable", methods=['POST'])
 def variable():
@@ -41,7 +31,7 @@ def variable():
     })
 
 def fetch_data_from_apify(query):
-    client = ApifyClient("apify_api_oMFeWJ2baWJSIpTcXAY7QzdS2xtaKG1soryD")
+    client = ApifyClient("apify_api_lX3pUredBtOxqhHaH2bWwHnaXbGbCM2C7V64")
     print("Apify client configured")
 
     run_input = {
@@ -122,4 +112,4 @@ def fetch_data_from_apify(query):
     return total, positive_percentage, negative_percentage, neutral_percentage
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8080)
+    app.run(debug=True, port=8081)

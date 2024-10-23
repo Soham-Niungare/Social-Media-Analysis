@@ -25,7 +25,7 @@ export function InputDemo() {
     setChartVisible(false);
     console.log("User Input:", searchQuery);
     try {
-      const response = await axios.post("http://127.0.0.1:8080/api/variable", {
+      const response = await axios.post("http://127.0.0.1:8081/api/variable", {
         searchQuery: searchQuery,
       });
 
