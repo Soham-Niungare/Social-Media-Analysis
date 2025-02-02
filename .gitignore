@@ -1,2 +1,3 @@
 server\virtualEnv
 client\node_modules
+server/services/sentiment_analysis_model.pt
