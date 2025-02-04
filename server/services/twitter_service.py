@@ -30,7 +30,14 @@ class TwitterService:
                 "id": tweet.get("tweet_id"),
                 "text": tweet.get("tweet_text", tweet.get("text", "")),
                 "timestamp": tweet.get("creation_date"),
-                "likes": tweet.get("favorite_count")
+                "favorite_count": int(tweet.get("favorite_count", 0)),
+                "retweet_count": int(tweet.get("retweet_count", 0)),
+                "reply_count": int(tweet.get("reply_count", 0)),
+                "quote_count": int(tweet.get("quote_count", 0)),
+                "views": tweet.get("views", 0),
+                "user_followers": tweet.get("user", {}).get("follower_count", 0),
+                "user_name": tweet.get("user", {}).get("name", ""),
+                "user_username": tweet.get("user", {}).get("username", "")
             }
             for tweet in data.get("results", [])
         ]
@@ -39,29 +46,3 @@ class TwitterService:
             raise Exception("No tweets found in the response")
         
         return pd.DataFrame(tweets_data)
-
-    def fetch_trends(self, woeid: str = "1") -> List[Dict[str, Any]]:
-        headers = {
-            "x-rapidapi-key": self.config.API_KEY,
-            "x-rapidapi-host": self.config.API_HOST
-        }
-        
-        params = {**self.config.DEFAULT_TRENDS_PARAMS, "woeid": woeid}
-        
-        response = requests.get(
-            self.config.TRENDS_URL,
-            headers=headers,
-            params=params
-        )
-        
-        if response.status_code != 200:
-            raise Exception(f"Trends API request failed: {response.status_code} - {response.text}")
-        
-        data = response.json()
-        
-        # Extract trends from the response structure
-        if not data or not isinstance(data, list) or not data[0].get('trends'):
-            raise Exception("Invalid trends data format received")
-        
-        # Return the trends array directly to maintain original structure
-        return data[0]['trends']

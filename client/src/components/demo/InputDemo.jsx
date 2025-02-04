@@ -7,7 +7,6 @@ import { Button } from "../ui/button";
 
 export function InputDemo() {
   const [searchQuery, setSearchQuery] = useState("");
-  const [responseMessage, setResponseMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [chartVisible, setChartVisible] = useState(false);
   const [totalTweets, setTotalTweets] = useState(null);
@@ -18,19 +17,16 @@ export function InputDemo() {
 
   const handleInputChange = (event) => {
     setSearchQuery(event.target.value);
-    // Clear previous error when user starts typing
     if (error) setError(null);
   };
 
   const handleSearch = async () => {
-    // Validate input
     if (!searchQuery.trim()) {
       setError("Please enter a search term");
       return;
     }
 
     setLoading(true);
-    setResponseMessage("");
     setChartVisible(false);
     setError(null);
     
@@ -42,23 +38,17 @@ export function InputDemo() {
       });
 
       const { 
-        message, 
-        total, 
-        positive_percentage, 
-        negative_percentage, 
-        neutral_percentage 
+        sentiment_analysis
       } = response.data;
 
-      setResponseMessage(message);
-      setTotalTweets(total);
-      setPositivePercentage(positive_percentage);
-      setNegativePercentage(negative_percentage);
-      setNeutralPercentage(neutral_percentage);
+      setTotalTweets(sentiment_analysis.total);
+      setPositivePercentage(sentiment_analysis.positive_percentage);
+      setNegativePercentage(sentiment_analysis.negative_percentage);
+      setNeutralPercentage(sentiment_analysis.neutral_percentage);
       setChartVisible(true);
     } catch (error) {
       console.error("Error during search:", error);
       setError(
-        error.response?.data?.message || 
         "An error occurred while analyzing tweets. Please try again."
       );
     } finally {

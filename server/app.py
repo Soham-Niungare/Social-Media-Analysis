@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from services.engagement_analysis import EngagementAnalyzer
 from services.twitter_service import TwitterService
 from services.data_cleaning import DataCleaner
 from services.sentiment_analysis import SentimentAnalyzer
@@ -18,6 +19,7 @@ sentiment_analyzer = SentimentAnalyzer(
     model_path='services/sentiment_analysis_model.pt',  # Update this path to your model location
     model_name="cardiffnlp/twitter-xlm-roberta-base-sentiment"
 )
+engagement_analyzer = EngagementAnalyzer(sentiment_analyzer)
 
 @app.route("/api/variable", methods=['POST'])
 def variable():
@@ -31,18 +33,16 @@ def variable():
         df = twitter_service.fetch_tweets(user_input)
         df = data_cleaner.clean_dataframe(df)
         
-        # Use new sentiment analyzer but keep same output format
-        total, pos_pct, neg_pct, neu_pct = sentiment_analyzer.analyze_dataframe(df)
+        # Get integrated analysis
+        analysis_results = engagement_analyzer.analyze(df)
+
+        # Debug print final response
+        print("Final API Response:", analysis_results)
         
-        return jsonify({
-            "message": f"Received user input: {user_input}",
-            "user_input": user_input,
-            "total": total,
-            "positive_percentage": pos_pct,
-            "negative_percentage": neg_pct,
-            "neutral_percentage": neu_pct
-        })
+        return jsonify(analysis_results)
+        
     except Exception as e:
+        print(f"Error occurred: {str(e)}")  # Debug log
         return jsonify({
             "error": str(e),
             "message": "Failed to fetch or process Twitter data"
