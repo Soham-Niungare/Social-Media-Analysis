@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { HeroSection } from "./components/demo/HeroSection";
 import { InputDemo } from "./components/demo/InputDemo";
-import { Sidebar } from "./components/demo/Sidebar";
+import { Navbar } from "./components/demo/Navbar";
 import { Footer } from "./components/demo/Footer";
 
 function App() {
@@ -34,10 +34,8 @@ function App() {
   };
 
   return (
-    <div className="w-full flex flex-col gap-4 bg-gray-200">
-      <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] lg:gap-6 mx-2 mt-2 md:mx-0">
-        <Sidebar />
-        <div className="flex flex-col gap-2">
+    <div className="w-full flex flex-col bg-gray-200">
+      <Navbar/>
           <HeroSection />
           <InputDemo onSearch={handleSearch} />
           {loading && (
@@ -49,32 +47,7 @@ function App() {
             <div className="text-red-500 p-4 text-center">
               {error}
             </div>
-          )}
-          {sentimentData && (
-            <div className="bg-white p-4 rounded-lg shadow">
-              <h2 className="text-xl font-bold mb-4">Sentiment Analysis Results</h2>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="text-center p-4 bg-green-100 rounded">
-                  <div className="font-bold text-green-700">Positive</div>
-                  <div>{sentimentData.positive_percentage.toFixed(1)}%</div>
-                </div>
-                <div className="text-center p-4 bg-red-100 rounded">
-                  <div className="font-bold text-red-700">Negative</div>
-                  <div>{sentimentData.negative_percentage.toFixed(1)}%</div>
-                </div>
-                <div className="text-center p-4 bg-gray-100 rounded">
-                  <div className="font-bold text-gray-700">Neutral</div>
-                  <div>{sentimentData.neutral_percentage.toFixed(1)}%</div>
-                </div>
-              </div>
-              <div className="mt-4 text-center text-gray-600">
-                Total tweets analyzed: {sentimentData.total}
-              </div>
-            </div>
-          )}
-          {/* <Blogsection /> */}
-        </div>
-      </div>
+          )} 
       <Footer />
     </div>
   );

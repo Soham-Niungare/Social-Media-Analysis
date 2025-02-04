@@ -21,7 +21,7 @@ export function HeroSection() {
                 className="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-md font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
                 href="#"
               >
-                Learn More
+                Get Started
               </a>
             </div>
           </div>

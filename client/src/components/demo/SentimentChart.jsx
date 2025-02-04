@@ -19,7 +19,7 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-export function MyChart({
+export function SentimentChart({
   total,
   positivePercentage,
   negativePercentage,
@@ -45,8 +45,8 @@ export function MyChart({
 
   return (
     <Card className="flex flex-col hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
-      <CardHeader className="items-center pb-0">
-        <CardTitle>Sentiment Analysis Pie Chart</CardTitle>
+      <CardHeader>
+        <CardTitle className="text-xl">Sentiment Analysis - Pie Chart</CardTitle>
         <CardDescription>Real-time sentiment analysis</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0 relative">
