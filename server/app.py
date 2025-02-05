@@ -5,6 +5,8 @@ from services.twitter_service import TwitterService
 from services.data_cleaning import DataCleaner
 from services.sentiment_analysis import SentimentAnalyzer
 from config import TwitterConfig
+from countries import COUNTRIES_WOEID
+import logging
 
 app = Flask(__name__)
 cors = CORS(app, origins='*')
@@ -48,21 +50,47 @@ def variable():
             "message": "Failed to fetch or process Twitter data"
         }), 500
 
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
+
+
 @app.route("/api/trends", methods=['GET'])
 def trends():
     try:
-        # Get woeid from query parameters, default to worldwide (1)
-        woeid = request.args.get("woeid", "1")
+        country = request.args.get("country", "Worldwide")
+
+        # Get the corresponding WOEID
+        woeid = COUNTRIES_WOEID.get(country, 1)  # Defaults to Worldwide if not found
+        
+        # Log the request
+        logger.debug(f"Received trends request for woeid: {woeid}")
         
         # Fetch trends data
         trends_data = twitter_service.fetch_trends(woeid)
         
-        return jsonify({
+        # Log the trends data before sending
+        logger.debug(f"Fetched trends data: {trends_data}")
+
+        # Limit trends to 25 (can adjust as needed)
+        limited_trends = trends_data[:25]
+
+        
+        # Create the response
+        response_data = {
+            "country": country,
             "trends": trends_data,
-            "total_trends": len(trends_data),
+            "total_trends": len(limited_trends),
             "woeid": woeid
-        })
+        }
+        
+        # Log the final response
+        logger.debug(f"Sending response: {response_data}")
+        
+        return jsonify(response_data)
+        
     except Exception as e:
+        logger.error(f"Error in trends endpoint: {str(e)}")
         return jsonify({
             "error": str(e),
             "message": "Failed to fetch trends data"

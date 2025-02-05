@@ -73,8 +73,8 @@ export function EngagementChart({ engagementData }) {
 
   return (
     <div className="w-full max-w-3xl mx-auto bg-white p-4 rounded-xl shadow-lg min-h-96">
-      <h2 className="text-2xl font-bold text-center mb-4 text-gray-800">
-        Engagement Metrics
+      <h2 className="text-lg md:text-2xl font-bold text-center mb-4 text-gray-800">
+        Engagement Metrics - Histogram
       </h2>
       <Bar data={data} options={options} />
     </div>

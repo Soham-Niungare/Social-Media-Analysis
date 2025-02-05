@@ -6,18 +6,20 @@ import numpy as np
 from scipy.special import softmax
 
 class SentimentAnalyzer:
-    def __init__(self, model_path='sentiment_analysis_model.pt', model_name="cardiffnlp/twitter-xlm-roberta-base-sentiment"):
-        # Initialize tokenizer and model
-        self.tokenizer = AutoTokenizer.from_pretrained(model_name)
-        self.model = AutoModelForSequenceClassification.from_pretrained(model_name)
-        
-        # Load our trained weights
-        self.model.load_state_dict(torch.load(model_path))
-        self.model.eval()  # Set to evaluation mode
-        
-        # Move to CPU/GPU as available
+    def __init__(self, model_path= None, model_name=None):
+        self.model_path = model_path
+        self.model_name = model_name
+        self.tokenizer = None
+        self.model = None
         self.device = 'cuda' if torch.cuda.is_available() else 'cpu'
-        self.model = self.model.to(self.device)
+
+    def load_model(self):
+        if self.model is None or self.tokenizer is None:
+            self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+            self.model = AutoModelForSequenceClassification.from_pretrained(self.model_name)
+            self.model.load_state_dict(torch.load(self.model_path))
+            self.model.eval()
+            self.model = self.model.to(self.device)
 
     def preprocess(self, text: str) -> str:
         """Preprocess text similar to training"""
@@ -28,6 +30,7 @@ class SentimentAnalyzer:
 
     def get_sentiment_score(self, text: str) -> float:
         """Get sentiment score for a single text"""
+        self.load_model()  # Load model only when needed
         # Preprocess text
         text = self.preprocess(text)
         
@@ -59,7 +62,7 @@ class SentimentAnalyzer:
     def analyze_dataframe(self, df: pd.DataFrame) -> Tuple[int, float, float, float]:
         """Analyze sentiment for entire dataframe"""
         # Process in batches for efficiency
-        df['sentiment_score'] = df['cleaned_text'].apply(self.get_sentiment_score)
+        df = self.analyze_text_batch(df['cleaned_text'].tolist())
         df['sentiment'] = df['sentiment_score'].apply(self.classify_sentiment)
 
         sentiment_counts = df['sentiment'].value_counts()

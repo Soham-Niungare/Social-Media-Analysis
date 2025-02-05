@@ -45,8 +45,8 @@ export function SentimentChart({
 
   return (
     <Card className="flex flex-col hover:shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
-      <CardHeader>
-        <CardTitle className="text-xl">Sentiment Analysis - Pie Chart</CardTitle>
+      <CardHeader className="text-lg md:text-2xl text-center">
+        <CardTitle className="font-bold">Sentiment Analysis - Pie Chart</CardTitle>
         <CardDescription>Real-time sentiment analysis</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0 relative">

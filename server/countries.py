@@ -1,0 +1,36 @@
+# countries.py
+
+COUNTRIES_WOEID = {
+    "Worldwide": 1,
+    "United States": 23424977,
+    "India": 23424848,
+    "United Kingdom": 23424975,
+    "Canada": 23424775,
+    "Australia": 23424748,
+    "Japan": 23424856,
+    "Brazil": 23424768,
+    "Germany": 23424829,
+    "France": 23424819,
+    "Russia": 23424936,
+    "South Africa": 23424942,
+    "Indonesia": 23424846,
+    "Mexico": 23424900,
+    "Italy": 23424853,
+    "Spain": 23424950,
+    "Turkey": 23424969,
+    "Saudi Arabia": 23424938,
+    "South Korea": 23424868,
+    "Argentina": 23424747,
+    "Netherlands": 23424909,
+    "Sweden": 23424954,
+    "Switzerland": 23424957,
+    "Malaysia": 23424901,
+    "Thailand": 23424960,
+    "Nigeria": 23424908,
+    "Singapore": 23424948,
+    "Philippines": 23424934,
+    "Pakistan": 23424922,
+    "Egypt": 23424802,
+    "Vietnam": 23424984
+    # Add more countries as needed
+}

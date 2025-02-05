@@ -45,7 +45,6 @@ export function InputDemo() {
       } = response.data;
 
       const randomOffset = Math.floor(Math.random() * (501 - 100)) ;
-
       const newTotal = Math.min(sentiment_analysis.total + randomOffset, 10000);
 
       setEngagementMetrics(engagement_metrics);

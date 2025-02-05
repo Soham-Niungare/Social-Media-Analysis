@@ -3,6 +3,7 @@ import axios from "axios";
 import { HeroSection } from "./components/demo/HeroSection";
 import { InputDemo } from "./components/demo/InputDemo";
 import { Navbar } from "./components/demo/Navbar";
+import { TrendIdentification } from "./components/demo/TrendIdentification";
 import { Footer } from "./components/demo/Footer";
 
 function App() {
@@ -48,6 +49,7 @@ function App() {
               {error}
             </div>
           )} 
+          <TrendIdentification/>
       <Footer />
     </div>
   );
