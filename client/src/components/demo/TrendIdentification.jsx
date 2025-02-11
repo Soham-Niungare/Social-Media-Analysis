@@ -84,7 +84,7 @@ export function TrendIdentification() {
     setSelectedTrend(trendName);
 
     try {
-      const response = await axios.post("http://127.0.0.1:8081/api/variable", {
+      const response = await axios.post("http://127.0.0.1:8081/api/trends", {
         searchQuery: trendName,
       });
       setTweets(response.data.tweets || []);
@@ -121,7 +121,7 @@ export function TrendIdentification() {
         data, empowering users to analyze trends, conversations, and engagement
         on Twitter. 
       </p>
-      <div className="flex flex-col gap-4 justify-center items-center sm:flex-row py-16 border-r border-b border-gray-600 rounded-3xl shadow-[rgba(0,_0,_0,_0.24)_0px_3px_8px]">
+      <div className="flex flex-col gap-4 justify-center items-center sm:flex-row py-16 border-r border-b border-gray-600 bg-gray-200 rounded-3xl shadow-[0_35px_60px_-15px_rgba(0,0,0,0.3)]">
         <select
           value={selectedCountry}
           onChange={handleCountryChange}

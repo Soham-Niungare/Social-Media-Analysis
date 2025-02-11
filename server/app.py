@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+from transformers import AutoTokenizer
 from services.engagement_analysis import EngagementAnalyzer
 from services.twitter_service import TwitterService
 from services.data_cleaning import DataCleaner
