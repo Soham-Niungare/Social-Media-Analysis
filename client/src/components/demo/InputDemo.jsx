@@ -44,11 +44,11 @@ export function InputDemo() {
         engagement_metrics
       } = response.data;
 
-      const randomOffset = Math.floor(Math.random() * (501 - 100)) ;
-      const newTotal = Math.min(sentiment_analysis.total + randomOffset, 10000);
+      // const randomOffset = Math.floor(Math.random() * (501 - 100)) ;
+      // const newTotal = Math.min(sentiment_analysis.total + randomOffset, 10000);
 
       setEngagementMetrics(engagement_metrics);
-      setTotalTweets(newTotal);
+      setTotalTweets(sentiment_analysis.total);
       setPositivePercentage(sentiment_analysis.positive_percentage);
       setNegativePercentage(sentiment_analysis.negative_percentage);
       setNeutralPercentage(sentiment_analysis.neutral_percentage);
