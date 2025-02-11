@@ -4,7 +4,7 @@ export function Footer() {
       <footer className="bg-gray-900">
         <div className="mx-auto max-w-screen-xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="sm:flex sm:items-center sm:justify-between">
-            <div className="flex justify-center text-teal-600 sm:justify-start text-xl font-semibold">
+            <div className="flex justify-center text-[#2563EB] font-bold sm:justify-start text-xl font-semibold">
               <span>InsightPulse</span>
             </div>
 

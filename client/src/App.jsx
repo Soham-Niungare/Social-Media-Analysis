@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import axios from "axios";
 import { HeroSection } from "./components/demo/HeroSection";
 import { InputDemo } from "./components/demo/InputDemo";
@@ -10,6 +10,13 @@ function App() {
   const [sentimentData, setSentimentData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+
+  const sentimentRef = useRef(null);
+  const trendRef = useRef(null);
+
+  const scrollToSection = (ref) => {
+    ref.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const analyzeSentiment = async (searchQuery) => {
     try {
@@ -36,20 +43,24 @@ function App() {
 
   return (
     <div className="w-full flex flex-col bg-gray-200">
-      <Navbar/>
+      <Navbar scrollToSection={scrollToSection} sentimentRef={sentimentRef} trendRef={trendRef}/>
           <HeroSection />
-          <InputDemo onSearch={handleSearch} />
-          {loading && (
-            <div className="text-center p-4">
-              Loading analysis...
-            </div>
-          )}
-          {error && (
-            <div className="text-red-500 p-4 text-center">
-              {error}
-            </div>
-          )} 
-          <TrendIdentification/>
+          <div ref={sentimentRef}>
+              <InputDemo onSearch={handleSearch}  />
+              {loading && (
+                <div className="text-center p-4">
+                  Loading analysis...
+                </div>
+              )}
+              {error && (
+                <div className="text-red-500 p-4 text-center">
+                  {error}
+                </div>
+              )} 
+          </div>
+          <div ref={trendRef}>
+          <TrendIdentification />
+          </div>
       <Footer />
     </div>
   );
