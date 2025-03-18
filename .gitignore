@@ -1,5 +1,7 @@
 server\virtualEnv
 client\node_modules
-server/services/sentiment_analysis_model.pt
+server\model\sentiment_analysis_model.pt
 server\__pycache__
 server\services\__pycache__
+server\api\__pycache__
+server\config\__pycache__

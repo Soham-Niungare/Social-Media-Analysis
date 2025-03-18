@@ -14,8 +14,8 @@ class TwitterConfig:
             "section": "latest",
             "min_retweets": "1",
             "min_likes": "1",
-            "limit": "20",
-            "language": "en"
+            "limit": "20"
+            # "language": "en"
         }
         self.DEFAULT_TRENDS_PARAMS = {
             "woeid": "1"

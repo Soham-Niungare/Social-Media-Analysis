@@ -1,7 +1,7 @@
 import requests
 import pandas as pd
 from typing import Dict, Any, List
-from config import TwitterConfig
+from config.config import TwitterConfig
 import logging
 import time
 
