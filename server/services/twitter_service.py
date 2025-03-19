@@ -47,7 +47,7 @@ class TwitterService:
             self.logger.debug(f"Continuation token received: {continuation_token is not None}")
             
             page = 1
-            max_pages = 5  # Limit pages for testing
+            max_pages = 8  # Limit pages for testing
             
             while continuation_token and page < max_pages:
                 self.logger.debug(f"Fetching page {page + 1}")
