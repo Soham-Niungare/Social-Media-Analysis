@@ -12,15 +12,6 @@ def register_translation_routes(app):
     
     @translation_bp.route('/api/translations/<tweet_id>', methods=['GET'])
     def get_translation(tweet_id):
-        """
-        Retrieve translation for a specific tweet if available
-        
-        Args:
-            tweet_id (str): ID of the tweet to get translation for
-            
-        Returns:
-            JSON response with translation data or error
-        """
         try:
             translation = data_cleaner.get_translation_for_tweet(tweet_id)
             
@@ -44,12 +35,6 @@ def register_translation_routes(app):
     
     @translation_bp.route('/api/translations', methods=['GET'])
     def list_translations():
-        """
-        List all available translations
-        
-        Returns:
-            JSON response with list of all translations
-        """
         try:
             translations = data_cleaner.translator.get_saved_translations()
             

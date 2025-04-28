@@ -30,7 +30,7 @@ class SentimentAnalyzer:
 
     def get_sentiment_score(self, text: str) -> float:
         """Get sentiment score for a single text"""
-        self.load_model()  # Load model only when needed
+        self.load_model()  
         # Preprocess text
         text = self.preprocess(text)
         
@@ -44,15 +44,13 @@ class SentimentAnalyzer:
             scores = outputs.logits[0].cpu().numpy()
             scores = softmax(scores)
             
-        # Convert to compound score similar to VADER (-1 to 1 range)
-        # Assuming scores[0] is negative, scores[1] is neutral, scores[2] is positive
-        compound = (scores[2] - scores[0]) # Will be between -1 and 1
+
+        compound = (scores[2] - scores[0]) 
         
         return float(compound)
 
     @staticmethod
     def classify_sentiment(score: float) -> str:
-        """Classify sentiment based on compound score"""
         if score >= 0.05:
             return 'positive'
         elif score <= -0.05:
@@ -60,8 +58,6 @@ class SentimentAnalyzer:
         return 'neutral'
 
     def analyze_dataframe(self, df: pd.DataFrame) -> Tuple[int, float, float, float]:
-        """Analyze sentiment for entire dataframe"""
-        # Process in batches for efficiency
         df = self.analyze_text_batch(df['cleaned_text'].tolist())
         df['sentiment'] = df['sentiment_score'].apply(self.classify_sentiment)
 
@@ -76,8 +72,6 @@ class SentimentAnalyzer:
         )
 
     def analyze_text_batch(self, texts: list) -> pd.DataFrame:
-        """Analyze a batch of texts and return detailed results"""
-        # Preprocess all texts
         processed_texts = [self.preprocess(text) for text in texts]
         
         # Tokenize
@@ -116,29 +110,22 @@ class EngagementAnalyzer:
         self.sentiment_analyzer = sentiment_analyzer
     
     def format_engagement_metrics(self, df: pd.DataFrame) -> list:
-        """Format engagement metrics in the desired structure"""
-        # First, add sentiment to each tweet
         if 'sentiment' not in df.columns:
             df['sentiment_score'] = df['cleaned_text'].apply(self.sentiment_analyzer.get_sentiment_score)
             df['sentiment'] = df['sentiment_score'].apply(self.sentiment_analyzer.classify_sentiment)
         
-        # Debug print
         print("DataFrame shape:", df.shape)
         print("Sentiment distribution:", df['sentiment'].value_counts())
         print("Sample of engagement metrics by sentiment:")
         print(df.groupby('sentiment')[self.metrics].mean())
 
-        # Ensure metrics are numeric
         for metric in self.metrics:
             df[metric] = pd.to_numeric(df[metric], errors='coerce').fillna(0)
 
-        # Group by sentiment and calculate mean of engagement metrics
         engagement_by_sentiment = df.groupby('sentiment')[self.metrics].mean()
 
-        # Convert the means to a regular dictionary for easier handling
         engagement_dict = engagement_by_sentiment.to_dict()
         
-        # Format metrics into the desired structure
         formatted_metrics = []
         for metric_key in self.metrics:
             metric_data = {
@@ -152,12 +139,9 @@ class EngagementAnalyzer:
         return formatted_metrics
 
     def analyze(self, df: pd.DataFrame) -> dict:
-        """Perform sentiment and engagement analysis"""
-        # Add sentiment analysis
         df['sentiment_score'] = df['cleaned_text'].apply(self.sentiment_analyzer.get_sentiment_score)
         df['sentiment'] = df['sentiment_score'].apply(self.sentiment_analyzer.classify_sentiment)
         
-        # Calculate sentiment percentages
         sentiment_counts = df['sentiment'].value_counts()
         total = len(df)
         
@@ -168,10 +152,8 @@ class EngagementAnalyzer:
             "neutral_percentage": round((sentiment_counts.get('neutral', 0) / total) * 100, 1)
         }
         
-        # Get engagement metrics in the new format
         engagement_metrics = self.format_engagement_metrics(df)
 
-        # Debug print to verify data before return
         print("Engagement metrics to be returned:", engagement_metrics)
         
         return {

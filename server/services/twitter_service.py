@@ -20,10 +20,10 @@ class TwitterService:
         all_tweets_data = []
         params = {**self.config.DEFAULT_SEARCH_PARAMS, "query": query}
         
-        # Debug print initial parameters
+
         self.logger.debug(f"Initial search parameters: {params}")
         
-        # Initial search
+
         try:
             response = requests.get(
                 self.config.SEARCH_URL,
@@ -35,30 +35,30 @@ class TwitterService:
                 raise Exception(f"API request failed: {response.status_code} - {response.text}")
             
             data = response.json()
-            # Debug print response data structure
+
             self.logger.debug(f"Initial response keys: {data.keys()}")
             self.logger.debug(f"Number of initial results: {len(data.get('results', []))}")
             
             initial_tweets = data.get("results", [])
             all_tweets_data.extend([self._process_tweet_data(tweet) for tweet in initial_tweets])
             
-            # Get continuation token
+
             continuation_token = data.get("continuation_token")
             self.logger.debug(f"Continuation token received: {continuation_token is not None}")
             
             page = 1
-            max_pages = 8  # Limit pages for testing
+            max_pages = 8  # Limit pages for testin
             
             while continuation_token and page < max_pages:
                 self.logger.debug(f"Fetching page {page + 1}")
-                time.sleep(1)  # Rate limiting
+                time.sleep(1)  # Rate limitin
                 
                 continuation_params = {
                     **params,
                     "continuation_token": continuation_token
                 }
                 
-                # Debug print continuation parameters
+
                 self.logger.debug(f"Continuation parameters: {continuation_params}")
                 
                 try:
@@ -76,7 +76,7 @@ class TwitterService:
                         break
                     
                     cont_data = response.json()
-                    # Debug print continuation response
+
                     self.logger.debug(f"Continuation response keys: {cont_data.keys()}")
                     self.logger.debug(f"Number of continuation results: {len(cont_data.get('results', []))}")
                     
@@ -125,16 +125,7 @@ class TwitterService:
         }
 
     def fetch_trends(self, woeid: str = "1") -> List[Dict[str, Any]]:
-        """
-        Fetch trending topics from Twitter using the RapidAPI endpoint.
-        
-        Args:
-            woeid (str): The Where On Earth ID for the location to get trends for.
-                        Defaults to "1" which is worldwide.
-        
-        Returns:
-            List[Dict[str, Any]]: A list of trending topics with their details
-        """
+
         self.logger.debug(f"Fetching trends for WOEID: {woeid}")
         
         headers = {
@@ -162,8 +153,7 @@ class TwitterService:
             response_data = response.json()
             self.logger.debug(f"Raw API response: {response_data}")
             
-            # Extract trends from the correct structure
-            # response_data is a list with one object containing trends
+
             if not response_data or not isinstance(response_data, list) or len(response_data) == 0:
                 self.logger.warning("Invalid response format")
                 return []

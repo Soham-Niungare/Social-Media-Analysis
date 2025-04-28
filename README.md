@@ -1,4 +1,4 @@
-# Social Media Analysis Dashboard
+# Real Time Social Media Analysis Dashboard
 
 ## Overview
 
